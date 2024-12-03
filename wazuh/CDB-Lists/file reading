@@ -1,0 +1,16 @@
+/var/ossec/etc/lists/files
+
+## Le but de ce fichier est de regrouper les fichiers sensibles auquels on ne veut pas que quelqu'un y accède (lecture et execution)
+Le problème et que la chaine de caractère "cat xxx" n'est pas pris en compte par wazuh, il faut regarder comment on peut superviser ces fichiers.
+
+cat /etc/passwd
+cat /etc/shadow
+password.txt #honeypot
+cat /etc/sudoers
+cat /etc/group
+cat /etc/hostname
+cat /etc/resolv.conf
+cat /root/.bash_history
+find / -name "*.key"
+find / -name "*.pem"
+find / -name "*.crt"

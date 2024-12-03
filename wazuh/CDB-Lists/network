@@ -1,0 +1,8 @@
+netstat:red
+ss:red
+route:red
+dig:red
+nslookup:red
+traceroute:red
+arp:red
+telnet:red

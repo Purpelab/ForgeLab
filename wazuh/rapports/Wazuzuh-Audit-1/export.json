@@ -1,0 +1,280 @@
+[
+    {
+        "assessmentid": "6749d11fdaf7b4ee4000e533",
+        "name": "Netstat Execution - Basique",
+        "objective": "Le but de ce premier audit est de tester le d\u00e9ploiement et le contournement de r\u00e8gles de la tactique Reconnaissance (pour la technique \"R\u00e9cup\u00e9ration d'informations r\u00e9seau de la victime compromise\").\r\n\r\nL'environnement est un ubuntu server (24.04.1 LTS) avec un agent Wazuh install\u00e9.",
+        "actions": "alex@server:~$  netstat -ntlp\r\n(No info could be read for \"-p\": geteuid()=1000 but you should be root.)\r\nActive Internet connections (only servers)\r\nProto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    \r\ntcp        0      0 0.0.0.0:443             0.0.0.0:*               LISTEN      -                   \r\ntcp        0      0 0.0.0.0:32768           0.0.0.0:*               LISTEN      -                   \r\ntcp        0      0 0.0.0.0:25              0.0.0.0:*               LISTEN      -                   \r\ntcp        0      0 0.0.0.0:1515            0.0.0.0:*               LISTEN      -                   \r\ntcp        0      0 0.0.0.0:1514            0.0.0.0:*               LISTEN      -                   \r\ntcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      -                   \r\ntcp        0      0 0.0.0.0:2222            0.0.0.0:*               LISTEN      \r\nalex@server:~$\r\n",
+        "rednotes": "Action d\u00e9roul\u00e9e avec succ\u00e8s c\u00f4t\u00e9 Red.",
+        "bluenotes": "D\u00e9tect\u00e9 par le SIEM (rule.id : 100001)",
+        "uuid": "",
+        "mitreid": "T1590",
+        "tactic": "Discovery",
+        "state": "Complete",
+        "prevented": "No",
+        "preventedrating": "0.0",
+        "alerted": true,
+        "alertseverity": "Critical",
+        "logged": true,
+        "detectionrating": "",
+        "priority": "",
+        "priorityurgency": "",
+        "visible": true,
+        "outcome": "Alerted",
+        "id": "6749d99adaf7b4ee4000e534",
+        "detecttime": "2024-11-29 16:25:57",
+        "modifytime": "2024-11-29 16:35:27",
+        "starttime": "2024-11-29 16:13:00",
+        "endtime": "2024-11-29 16:15:00",
+        "tags": [
+            "Detected|#26a269"
+        ],
+        "sources": [
+            "server|agent 000 alex"
+        ],
+        "targets": [],
+        "tools": [
+            "netstat|netstat command"
+        ],
+        "controls": [],
+        "redfiles": [],
+        "bluefiles": []
+    },
+    {
+        "assessmentid": "6749d11fdaf7b4ee4000e533",
+        "name": "Whoami Commande - Basique",
+        "objective": "Le but de ce premier audit est de tester le d\u00e9ploiement et le contournement de r\u00e8gles de la tactique Reconnaissance (pour la technique \"R\u00e9cup\u00e9ration d'informations d'identit\u00e9 de la victime compromise\").\r\n\r\nL'environnement est un ubuntu server (24.04.1 LTS) avec un agent Wazuh install\u00e9.",
+        "actions": "alex@server:~$ whoami\r\nalex\r\nalex@server:~$",
+        "rednotes": "Action d\u00e9roul\u00e9e avec succ\u00e8s c\u00f4t\u00e9 Red.",
+        "bluenotes": "D\u00e9tecter par le SIEM (rule.id : 100002)",
+        "uuid": "",
+        "mitreid": "T1589",
+        "tactic": "Discovery",
+        "state": "Complete",
+        "prevented": "No",
+        "preventedrating": "0.0",
+        "alerted": true,
+        "alertseverity": "Critical",
+        "logged": true,
+        "detectionrating": "",
+        "priority": "",
+        "priorityurgency": "",
+        "visible": true,
+        "outcome": "Alerted",
+        "id": "6749d9badaf7b4ee4000e535",
+        "detecttime": "2024-11-29 15:40:25",
+        "modifytime": "2024-11-29 16:29:25",
+        "starttime": "2024-11-29 15:12:00",
+        "endtime": "2024-11-29 15:26:00",
+        "tags": [
+            "Detected|#26a269"
+        ],
+        "sources": [
+            "server|agent 000 alex"
+        ],
+        "targets": [],
+        "tools": [
+            "whoami|whoami command"
+        ],
+        "controls": [],
+        "redfiles": [],
+        "bluefiles": []
+    },
+    {
+        "assessmentid": "6749d11fdaf7b4ee4000e533",
+        "name": "Whoami Bypass -  Espaces",
+        "objective": "Le but de ce premier audit est de tester le d\u00e9ploiement et le contournement de r\u00e8gles de la tactique Reconnaissance (pour la technique \"R\u00e9cup\u00e9ration d'informations d'identit\u00e9 de la victime compromise\").\r\n\r\nL'environnement est un ubuntu server (24.04.1 LTS) avec un agent Wazuh install\u00e9.",
+        "actions": "alex@server:~$    whoami\r\nalex\r\nalex@server:~$",
+        "rednotes": "Action d\u00e9roul\u00e9e avec succ\u00e8s c\u00f4t\u00e9 Red.",
+        "bluenotes": "D\u00e9tect\u00e9 par le SIEM (rule.id : 100002) - elle est d\u00e9tect\u00e9e car elle reconnais l\u2019ex\u00e9cutable whoami. ",
+        "uuid": "",
+        "mitreid": "T1589",
+        "tactic": "Discovery",
+        "state": "Complete",
+        "prevented": "No",
+        "preventedrating": "0.0",
+        "alerted": true,
+        "alertseverity": "Critical",
+        "logged": true,
+        "detectionrating": "",
+        "priority": "",
+        "priorityurgency": "",
+        "visible": true,
+        "outcome": "Alerted",
+        "id": "6749dc22daf7b4ee4000e536",
+        "detecttime": "2024-11-29 15:41:18",
+        "modifytime": "2024-11-29 16:30:02",
+        "starttime": "2024-11-29 15:25:00",
+        "endtime": "2024-11-29 15:25:00",
+        "tags": [
+            "Detected|#26a269"
+        ],
+        "sources": [
+            "server|agent 000 alex"
+        ],
+        "targets": [],
+        "tools": [
+            "whoami|whoami command"
+        ],
+        "controls": [],
+        "redfiles": [],
+        "bluefiles": []
+    },
+    {
+        "assessmentid": "6749d11fdaf7b4ee4000e533",
+        "name": "Whoami Bypass - Copie du binaire",
+        "objective": "Le but de ce premier audit est de tester le d\u00e9ploiement et le contournement de r\u00e8gles de la tactique Reconnaissance (pour la technique \"R\u00e9cup\u00e9ration d'informations d'identit\u00e9 de la victime compromise\").\r\n\r\nL'environnement est un ubuntu server (24.04.1 LTS) avec un agent Wazuh install\u00e9.",
+        "actions": "alex@server:~$ cp $(which whoami) /tmp/mytool\r\nalex@server:~$ /tmp/mytool -ntlp\r\nalex@server:~$ whoami\r\nalex\r\nalex@server:~$",
+        "rednotes": "Action d\u00e9roul\u00e9e avec succ\u00e8s c\u00f4t\u00e9 Red.",
+        "bluenotes": "Le fait de copier le binaire dans un autres fichier, puis d\u2019ex\u00e9cuter ce dernier permet de contourner la r\u00e8gle (remont\u00e9 dans les logs auditd en Low).\r\n\r\nSolution : \r\n- Monitorer la modification / cr\u00e9ation de fichier dans des r\u00e9pertoires sp\u00e9cifique.\r\n\r\nAction a r\u00e9aliser : \r\n\r\nhttps://documentation.wazuh.com/current/user-manual/capabilities/command-monitoring/use-cases/check-if-the-output-changed.html",
+        "uuid": "",
+        "mitreid": "T1589",
+        "tactic": "Discovery",
+        "state": "Complete",
+        "prevented": "No",
+        "preventedrating": "0.0",
+        "alerted": false,
+        "alertseverity": "",
+        "logged": true,
+        "detectionrating": "0.0",
+        "priority": "",
+        "priorityurgency": "",
+        "visible": true,
+        "outcome": "Logged",
+        "id": "6749dc39daf7b4ee4000e537",
+        "detecttime": "2024-11-29 15:38:31",
+        "modifytime": "2024-11-29 16:29:51",
+        "starttime": "2024-11-29 15:24:00",
+        "endtime": "2024-11-29 15:24:00",
+        "tags": [
+            "Undetected|#f6d32d"
+        ],
+        "sources": [
+            "server|agent 000 alex"
+        ],
+        "targets": [],
+        "tools": [
+            "whoami|whoami command"
+        ],
+        "controls": [],
+        "redfiles": [],
+        "bluefiles": []
+    },
+    {
+        "assessmentid": "6749d11fdaf7b4ee4000e533",
+        "name": "Netstat Execution Bypass - Copie du binaire",
+        "objective": "Le but de ce premier audit est de tester le d\u00e9ploiement et le contournement de r\u00e8gles de la tactique Reconnaissance (pour la technique \"R\u00e9cup\u00e9ration d'informations r\u00e9seau de la victime compromise\").\r\n\r\nL'environnement est un ubuntu server (24.04.1 LTS) avec un agent Wazuh install\u00e9.",
+        "actions": "alex@server:~$ cp $(which netstat) /tmp/mytool\r\n\r\nalex@server:~$ /tmp/mytool -ntlp\r\n(No info could be read for \"-p\": geteuid()=1000 but you should be root.)\r\nActive Internet connections (only servers)\r\nProto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    \r\ntcp        0      0 0.0.0.0:443             0.0.0.0:*               LISTEN      -                   \r\ntcp        0      0 0.0.0.0:32768           0.0.0.0:*               LISTEN      -                   \r\ntcp        0      0 0.0.0.0:25              0.0.0.0:*               LISTEN      -                   \r\ntcp        0      0 0.0.0.0:1515            0.0.0.0:*               LISTEN      -                   \r\ntcp        0      0 0.0.0.0:1514            0.0.0.0:*               LISTEN      -                   \r\ntcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      -                   \r\ntcp        0      0 0.0.0.0:2222            0.0.0.0:*               LISTEN      -             ",
+        "rednotes": "Action d\u00e9roul\u00e9e avec succ\u00e8s c\u00f4t\u00e9 Red.",
+        "bluenotes": "Le fait de copier le binaire dans un autres fichier, puis d\u2019ex\u00e9cuter ce dernier permet de contourner la r\u00e8gle (remont\u00e9 dans les logs auditd en Low).\r\n\r\nSolution : \r\n- Monitorer la modification / cr\u00e9ation de fichier dans des r\u00e9pertoires sp\u00e9cifique.\r\n\r\nAction a r\u00e9aliser : \r\n\r\nhttps://documentation.wazuh.com/current/user-manual/capabilities/command-monitoring/use-cases/check-if-the-output-changed.html",
+        "uuid": "",
+        "mitreid": "T1590",
+        "tactic": "Discovery",
+        "state": "Complete",
+        "prevented": "No",
+        "preventedrating": "",
+        "alerted": true,
+        "alertseverity": "Low",
+        "logged": true,
+        "detectionrating": "0.0",
+        "priority": "",
+        "priorityurgency": "",
+        "visible": true,
+        "outcome": "Alerted",
+        "id": "6749e9ae4a32afe817d05fa1",
+        "detecttime": "2024-11-29 16:33:10",
+        "modifytime": "2024-11-29 16:33:10",
+        "starttime": "2024-11-29 16:27:00",
+        "endtime": "2024-11-29 16:27:00",
+        "tags": [
+            "Undetected|#f6d32d"
+        ],
+        "sources": [
+            "server|agent 000 alex"
+        ],
+        "targets": [],
+        "tools": [
+            "netstat|netstat command"
+        ],
+        "controls": [],
+        "redfiles": [],
+        "bluefiles": []
+    },
+    {
+        "assessmentid": "6749d11fdaf7b4ee4000e533",
+        "name": "Netstat Execution Bypass - Fichiers syst\u00e8mes",
+        "objective": "Le but de ce premier audit est de tester le d\u00e9ploiement et le contournement de r\u00e8gles de la tactique Reconnaissance (pour la technique \"R\u00e9cup\u00e9ration d'informations r\u00e9seau de la victime compromise\").\r\n\r\nL'environnement est un ubuntu server (24.04.1 LTS) avec un agent Wazuh install\u00e9.",
+        "actions": "alex@server:~$ cat /proc/net/tcp\r\n  sl  local_address rem_address   st tx_queue rx_queue tr tm->when retrnsmt   uid  timeout inode                                                     \r\n   0: 00000000:01BB 00000000:0000 0A 00000000:00000000 00:00000000 00000000     0        0 11561 1 0000000000000000 100 0 0 10 0                     \r\n   1: 00000000:8000 00000000:0000 0A 00000000:00000000 00:00000000 00000000     0        0 325057 1 0000000000000000 100 0 0 10 0                    \r\n   2: 00000000:0019 00000000:0000 0A 00000000:00000000 00:00000000 00000000     0        0 12673 1 0000000000000000 100 0 0 10 0                     \r\n   3: 00000000:05EB 00000000:0000 0A 00000000:00000000 00:00000000 00000000     0        0 3275217 1 0000000000000000 100 0 0 10 0                   \r\n   4: 00000000:05EA 00000000:0000 0A 00000000:00000000 00:00000000 00000000     0        0 3274525 1 0000000000000000 100 0 0 10 0                   \r\n   5: 3500007F:0035 00000000:0000 0A 00000000:00000000 00:00000000 00000000   992        0 9359 1 0000000000000000 100 0 0 10 5                      \r\n   6: 00000000:08AE 00000000:0000 0A 00000000:00000000 00:00000000 00000000     0        0 8966 1 0000000000000000 100 0 0 10 0                      \r\n   7: 00000000:0BB9 00000000:0000 0A 00000000:00000000 00:00000000 00000000     0        0 122\r\n\r\nalex@server:~$ cat /proc/net/udp\r\n   sl  local_address rem_address   st tx_queue rx_queue tr tm->when retrnsmt   uid  timeout inode ref pointer drops            \r\n  388: 3600007F:0035 00000000:0000 07 00000000:00000000 00:00000000 00000000   992        0 9360 2 0000000000000000 0          \r\n  388: 3500007F:0035 00000000:0000 07 00000000:00000000 00:00000000 00000000   992        0 9358 2 0000000000000000 0          \r\n 3228: 00000000:EB4D 00000000:0000 07 00000000:00000000 00:00000000 00000000   112        0 7910 2 0000000000000000 0          \r\n 5688: 00000000:14E9 00000000:0000 07 00000000:00000000 00:00000000 00000000   112        0 7908 2 0000000000000000 0          \r\nalex@server:~$ \r\n\r\n\r\n",
+        "rednotes": "Action d\u00e9roul\u00e9e avec succ\u00e8s c\u00f4t\u00e9 Red.",
+        "bluenotes": "Cette commande n'a pas \u00e9t\u00e9 d\u00e9tect\u00e9 car elle interroge directement les fichiers syst\u00e8me sans ex\u00e9cuter un binaire externe.\r\n\r\nSolution : \r\n- Monitorer la lecture de r\u00e9pertoires sensibles.\r\n\r\n",
+        "uuid": "",
+        "mitreid": "T1590",
+        "tactic": "Discovery",
+        "state": "Complete",
+        "prevented": "",
+        "preventedrating": "",
+        "alerted": false,
+        "alertseverity": "",
+        "logged": false,
+        "detectionrating": "0.0",
+        "priority": "",
+        "priorityurgency": "",
+        "visible": true,
+        "outcome": "",
+        "id": "6749e9e64a32afe817d05fa2",
+        "detecttime": "None",
+        "modifytime": "2024-11-29 16:33:54",
+        "starttime": "2024-11-29 16:24:00",
+        "endtime": "2024-11-29 16:25:00",
+        "tags": [
+            "Undetected|#f6d32d"
+        ],
+        "sources": [
+            "server|agent 000 alex"
+        ],
+        "targets": [],
+        "tools": [],
+        "controls": [],
+        "redfiles": [],
+        "bluefiles": []
+    },
+    {
+        "assessmentid": "6749d11fdaf7b4ee4000e533",
+        "name": "Netstat Execution Bypass - Espaces",
+        "objective": "Le but de ce premier audit est de tester le d\u00e9ploiement et le contournement de r\u00e8gles de la tactique Reconnaissance (pour la technique \"R\u00e9cup\u00e9ration d'informations r\u00e9seau de la victime compromise\").\r\n\r\nL'environnement est un ubuntu server (24.04.1 LTS) avec un agent Wazuh install\u00e9.",
+        "actions": "alex@server:~$     netstat -ntlp\r\n(No info could be read for \"-p\": geteuid()=1000 but you should be root.)\r\nActive Internet connections (only servers)\r\nProto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    \r\ntcp        0      0 0.0.0.0:443             0.0.0.0:*               LISTEN      -                   \r\ntcp        0      0 0.0.0.0:32768           0.0.0.0:*               LISTEN      -                   \r\ntcp        0      0 0.0.0.0:25              0.0.0.0:*               LISTEN      -                   \r\ntcp        0      0 0.0.0.0:1515            0.0.0.0:*               LISTEN      -                   \r\ntcp        0      0 0.0.0.0:1514            0.0.0.0:*               LISTEN      -                   \r\ntcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      -                   \r\ntcp        0      0 0.0.0.0:2222            0.0.0.0:*               LISTEN      -             ",
+        "rednotes": "Action d\u00e9roul\u00e9e avec succ\u00e8s c\u00f4t\u00e9 Red.",
+        "bluenotes": "",
+        "uuid": "",
+        "mitreid": "T1590",
+        "tactic": "Discovery",
+        "state": "Complete",
+        "prevented": "",
+        "preventedrating": "",
+        "alerted": false,
+        "alertseverity": "",
+        "logged": false,
+        "detectionrating": "0.0",
+        "priority": "",
+        "priorityurgency": "",
+        "visible": true,
+        "outcome": "",
+        "id": "6749ea004a32afe817d05fa3",
+        "detecttime": "None",
+        "modifytime": "2024-11-29 16:31:28",
+        "starttime": "2024-11-29 16:26:00",
+        "endtime": "2024-11-29 16:26:00",
+        "tags": [
+            "Detected|#26a269"
+        ],
+        "sources": [
+            "server|agent 000 alex"
+        ],
+        "targets": [],
+        "tools": [
+            "netstat|netstat command"
+        ],
+        "controls": [],
+        "redfiles": [],
+        "bluefiles": []
+    }
+]
