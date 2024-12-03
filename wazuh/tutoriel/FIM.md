@@ -79,10 +79,9 @@ Ces règles déclenche une alerte critique lorsque Syscheck détecte une modific
 
 Dans `/var/ossec/etc/ossec.conf` : 
 
-![Virustotal](virustotal.png)
+![Virustotal](/assets/virustotal.png)
 
-
-On s'appuie sur la règle d'ajout de fichier pour aller checker le fichier ajouter dans Virus Total.
+On s'appuie sur la règle d'ajout de fichier pour aller checker le fichier ajouter dans Virus Total. La règle déclencher uara l'ID **87103**. 
 
 ## Points à améliorer
 - Problème avec $(syscheck.path) : La variable ne fonctionne pas correctement. L'objectif est de la faire afficher le chemin complet du fichier modifié dans l'alerte.
