@@ -1,4 +1,3 @@
-
 <!--
 ╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                                                                                     ║
@@ -14,54 +13,51 @@
 ║       8 8888             `8888888P'     8 8888     `88.     `8888888P'    8 888888888888 8 888888888888 .8'       `8. `88888. 8 888888888P          ║
 ║                                                                                                                                                     ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
-║                                                                   Discovery - 100100                                                                ║
+║                                                                  HoneyPot - 100300                                                                  ║
 ║                                                                   Author: amaz974 & CupOfCoffeeX                                                    ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 -->
+<group name="Honeypot">
 
-<group name="Discovery">
-    <rule id="100101" level="15">
-        <if_sid>80792</if_sid>
-    <list field="audit.command" lookup="match_key_value" check_value="red">etc/lists/network</list>
-    <description>🔍 Suspicious network discovery command: $(audit.exe) 🔍</description>
-            <info>
-            Cette règle détecte une commande de découverte réseau suspecte.
-            **Champs intéressants à regarder :**
-            - Commande complète exécutée (data.audit.execve.a*)
-            - Utilisateur
-            - PID
-            - Heure de l'événement
-
-            **Que faire en cas de cette alerte :**
-            1. Vérifiez si la commande était légitime et autorisée.
-            2. Si la commande n'était pas autorisée, identifiez l'utilisateur et le processus responsable.
-        </info>
+<rule id="100301" level="15">
+    <if_sid>80784</if_sid>
+    <description>👀 Le fichier $(audit.file.name) a été lu avec la commande $(command) 👀</description>
+    <info>
+        Cette règle détecte la lecture d'un fichier sensible dans le répertoire `/home/alex`.
+        **Champs intéressants à regarder :**
+        - data.audit.command
+    </info>
     <mitre>
-        <id>T1590</id>
+        <id>T1005</id>
     </mitre>
-    <group>,audit_command,critical,network</group>
-    </rule>
+    <group>honeypot,critical,read</group>
+</rule>
 
-    <rule id="100102" level="15">
-        <if_sid>80792</if_sid>
-    <list field="audit.command" lookup="match_key_value" check_value="red">etc/lists/user-enum</list>
-    <description>🔍 Suspicious command user enumeration :  $(audit.exe) 🔍</description>
-        <info>
-            Cette règle détecte une commande d'énumération d'utilisateur.
-            **Champs intéressants à regarder :**
-            - Commande complète exécutée (data.audit.execve.a*)
-            - Utilisateur
-            - PID
-            - Heure de l'événement
 
-            **Que faire en cas de cette alerte :**
-            1. Vérifiez si la commande était légitime et autorisée.
-            2. Si la commande n'était pas autorisée, identifiez l'utilisateur et le processus responsable.
-        </info>
+<rule id="100302" level="15">
+    <if_sid>80789</if_sid>
+    <description>👀 Le fichier $(audit.file.name) a été exécuté 👀</description>
+    <info>
+        Cette règle détecte l'exécution d'un fichier sensible dans le répertoire `/home/alex`.
+        **Champs intéressants à regarder :**
+        - data.audit.command
+    </info>
     <mitre>
-        <id>T1589</id>
+        <id>T1059</id>
     </mitre>
-    <group>,audit_command,critical,user-enum</group>
-    </rule>
+    <group>honeypot,critical,execution</group>
+</rule>
 
-</group>
+    <rule id="100303" level="15">
+    <if_sid>80781</if_sid>
+    <description>👀 Le fichier $(audit.file.name) a été modifié avec la commande $(command) 👀</description>
+    <info>
+        Cette règle détecte une modification sur un fichier sensible dans le répertoire `/home/alex`.
+        **Champs intéressants à regarder :**
+        - data.audit.command
+    </info>
+    <mitre>
+        <id>T1565</id>
+    </mitre>
+    <group>honeypot,critical,modification</group>
+</rule>
