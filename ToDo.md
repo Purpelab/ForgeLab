@@ -3,8 +3,8 @@
 - template rapport + conclusion ou d'autres champs intéressant a ajouter
 - mettre en place une testsuite pour tester les règles déjà implémentés lorsqu'on en ajoute de nouvelles
 - ~~**Monitorer l'integrité de fichier (voir le tuto fait)**~~ - Il faut voir si on monitore /tmp
-- monitorer l'accès a un repertoire
-- monitorer la lecture d'un fichier
+- ~~monitorer l'accès a un repertoire~~
+- ~~monitorer la lecture d'un fichier~~
 - Creation de "project" dans github afin d'y integrer la toDo (template team planning ou launch ....) on peut modifier (todo, in progress, done, amelioration)
 - https://github.com/wazuh/wazuh-dashboard-plugins - Intégrer le plugin dashboard
 - honeypot
