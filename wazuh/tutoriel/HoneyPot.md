@@ -1,175 +1,106 @@
-# Détection sur le user administrateur1 (leurre)
+# Honeypot pour surveiller l'accès à `/home/alex/credentials-admin.txt`
 
-Le but est de détecter **les accès au répertoire `/home/administrateur1`** ou **les tentatives de connexion avec l'utilisateur `administrateur1`**, pour ce faire nous allons utiliser une combinaison de techniques avec `auditd`, la gestion des journaux système (`pam`, `auth.log`), et Wazuh.
+## Introduction
 
----
+L'objectif de ce tutoriel est de créer un honeypot en utilisant un fichier `/home/alex/credentials-admin.txt` qui contient des informations sensibles. Ce fichier servira de leurre, et nous allons surveiller tout accès ou tentative d'accès à ce fichier pour détecter d'éventuelles attaques. Nous utiliserons `auditd` pour suivre les actions sur le fichier et Wazuh pour générer des alertes en cas de comportement suspect.
 
-## **Étape 1 : Créer l'utilisateur `administrateur1` **
+### Pré-requis
+
+Avant de commencer, voici les éléments à préparer :
+
+- Un utilisateur `administrateur1` qui aura aucun droit d'accès sur le fichier cible.
+- Un répertoire `/home/administrateur1` qui sera créé avec des permissions minimales pour attirer un attaquant potentiel.
+- Un fichier honeypot `/home/alex/credentials-admin.txt` qui contiendra des informations sensibles que nous allons surveiller.
+
+## Étape 1 : Créer l'utilisateur `administrateur1`
 
 1. **Créer un utilisateur système sans connexion interactive :**
 
-    ```bash
+    ```sh
     sudo useradd -M -r -s /usr/sbin/nologin administrateur1
     ```
 
     - **`-M`** : Ne crée pas de répertoire personnel.
-    - **`-r`** : Crée un utilisateur système pour leurrer l'attaquant.
-    - **`-s /usr/sbin/nologin`** : Empêche toute connexion interactive directe.
+    - **`-r`** : Crée un utilisateur système, sans droits spécifiques.
+    - **`-s /usr/sbin/nologin`** : Empêche l'accès à l'utilisateur par une session shell interactive.
 
-2. **Créer manuellement un répertoire personnel (si besoin pour attirer l'attaquant) :**
+2. **Créer un répertoire personnel avec des permissions restreintes :**
 
-    ```bash
+    ```sh
     sudo mkdir /home/administrateur1
     sudo chown administrateur1:administrateur1 /home/administrateur1
-    sudo chmod 711 /home/administrateur1
+    sudo chmod 700 /home/administrateur1
     ```
 
-    - **Explication des permissions `chmod 711` :**
-Les permissions chmod 711 permettent au propriétaire un accès complet, tandis que les autres peuvent seulement exécuter et voir le répertoire sans lister son contenu, attirant ainsi les attaquants.
+    - **Explication des permissions `chmod 700` :** Les droits sont uniquement pour le propriétaire.
 
----
+3. **Création du fichier honeypot `/home/alex/credentials-admin.txt` :**
 
-## Étape 2 : Configurer `auditd` pour surveiller le répertoire
+    Ce fichier servira de cible pour surveiller l'accès.
 
-1. **Ajouter une règle pour surveiller les accès au répertoire :**
-
-    Utilisez la commande suivante pour ajouter une règle temporaire avec `auditd` :
-
-    ```bash
-    sudo auditctl -w /home/administrateur1 -p rwxa -k admin_leurre_access
-    ```
-
-    - **`-w`** : Surveille le répertoire spécifié (`/home/administrateur1`).
-    - **`-p rwxa`** :
-        - **`r`** : Lecture.
-        - **`w`** : Écriture.
-        - **`x`** : Exécution (tentatives d'accès).
-        - **`a`** : Changements d'attributs (permissions, propriétés).
-    - **`-k admin_leurre_access`** : Définit une clé unique pour identifier facilement ces événements dans les journaux.
-
-2. **Rendre cette règle permanente :**
-
-    Ajoutez la règle dans le fichier de configuration d'`auditd` pour qu'elle persiste après un redémarrage :
-
-    ```bash
-    echo "-w /home/administrateur1 -p rwxa -k admin_leurre_access" | sudo tee -a /etc/audit/rules.d/audit.rules
-    ```
-
-3. **Tester la règle :**
-
-    - Accédez au répertoire (en tant qu'utilisateur ou superutilisateur) :
-
-        ```bash
-        cd /home/administrateur1
-        ```
-
-    - Vérifiez les journaux d’audit pour voir si l'accès a été enregistré :
-
-        ```bash
-        sudo ausearch -k admin_leurre_access | aureport -f
-        ```
-
-        Vous devriez voir une entrée correspondant à votre tentative d'accès.
-
----
-
-## **Étape 3 : Surveiller les tentatives de connexion avec `auditd`**
-
-1. **Ajouter une règle pour enregistrer les tentatives de connexion à l’utilisateur `administrateur1` :**
-
-    ```bash
-    sudo auditctl -a always,exit -F arch=b64 -S execve -F uid=995 -F key=login_admin_leurre
-    ```
-
-    - **`-a always,exit`** : Capture toutes les exécutions de commandes.
-    - **`-F uid=995`** : Remplacez `1001` par l’UID réel de l’utilisateur `administrateur1`. Vous pouvez obtenir l’UID avec :
-
-        ```bash
-        id -u administrateur1
-        ```
-
-    - **`-F key=login_admin_leurre`** : Utilise une clé pour identifier facilement ces événements.
-
-2. **Rendre cette règle permanente :**
-
-    Ajoutez-la à `/etc/audit/rules.d/audit.rules` :
-
-    ```bash
-    echo "-a always,exit -F arch=b64 -S execve -F uid=\$(id -u administrateur1) -F key=login_admin_leurre" | sudo tee -a /etc/audit/rules.d/audit.rules
-    ```
-
-3. **Redémarrez auditd pour appliquer les règles :**
-
-    ```bash
-    sudo systemctl restart auditd
-    ```
-
-4. **Tester la règle :**
-
-    Essayez de vous connecter en tant que `administrateur1` ou de lancer une commande en tant que cet utilisateur. Vérifiez les journaux d’audit avec :
-
-    ```bash
-    sudo ausearch -k login_admin_leurre | aureport -x
+    ```sh
+    sudo nano /home/alex/credentials-admin.txt
+    sudo chmod 600 /home/alex/credentials-admin.txt  # Réduit les permissions
     ```
 
 ---
 
-## **Étape 4 : Intégrer avec Wazuh**
+## Configuration des règles Auditd
 
-1. **Ajouter une règle Wazuh pour surveiller les accès au répertoire et les tentatives de connexion :**
+### 1. Introduction aux règles Auditd
 
-    Éditez ou créez le fichier de règles locales `/var/ossec/rules/local_rules.xml` :
+Les règles `auditd` permettent de surveiller les actions sur des fichiers ou répertoires spécifiques, y compris les accès en lecture, écriture ou exécution. L'outil `auditd` (audit daemon) peut être utilisé pour configurer des règles permettant de suivre les actions d'accès à des fichiers sensibles.
 
-    ```bash
-    sudo nano /var/ossec/rules/local_rules.xml
-    ```
+#### Comprendre les arguments importants
 
-    Ajoutez les règles suivantes :
+- `-w` : Cette option permet de spécifier le fichier ou le répertoire à surveiller.
+- `-p` : Définit les permissions à surveiller. Les options disponibles sont :
+    - `r` : lecture
+    - `w` : écriture
+    - `x` : exécution
+    - `a` : ajout de données (ajout d'un fichier par exemple)
+- `-k` : Définit une clé pour associer les règles, facilitant la recherche dans les logs.
 
-    ```xml
-    <group name="custom_rules">
-        <!-- Détection des accès au répertoire -->
-        <rule id="100002" level="10">
-            <decoded_as>audit</decoded_as>
-            <description>Access detected to /home/administrateur1</description>
-            <match>admin_leurre_access</match>
-        </rule>
-        <!-- Détection des tentatives de connexion -->
-        <rule id="100003" level="10">
-            <decoded_as>audit</decoded_as>
-            <description>Login attempt detected for administrateur1</description>
-            <match>login_admin_leurre</match>
-        </rule>
-    </group>
-    ```
+### 2. Commandes pour ajouter les règles Auditd
 
-    - **`id`** : Assurez-vous que ces IDs (100002 et 100003) sont uniques parmi vos règles.
-    - **`level="10"`** : Criticité élevée pour générer une alerte importante.
+```sh
+sudo nano /etc/audit/rules.d/audit.rules
 
-2. **Redémarrer le gestionnaire Wazuh :**
+```
+Ajouter les lignes suivantes :
 
-    ```bash
-    sudo systemctl restart wazuh-manager
-    ```
+```sh
 
-3. **Tester la configuration :**
+-w /home/alex/credentials-admin.txt -p w -k audit-wazuh-w
+-w /home/alex/credentials-admin.txt -p r -k audit-wazuh-r
+-w /home/alex/credentials-admin.txt -p x -k audit-wazuh-x
+-w /home/alex/credentials-admin.txt -p a -k audit-wazuh-a
+```
 
-    - Accédez au répertoire `/home/administrateur1` ou tentez de vous connecter avec l’utilisateur `administrateur1`.
-    - Vérifiez que les alertes apparaissent dans les logs Wazuh : `/var/ossec/logs/alerts/alerts.json`.
+3. Appliquer les règles
+Après avoir ajouté les règles au fichier de configuration audit.rules, vous devez les appliquer et vérifier que les règles sont actives :
 
----
+```sh
+sudo auditctl -R /etc/audit/rules.d/audit.rules
+sudo auditctl -l  # Vérifie que les règles ont bien été appliquées
+```
 
+## Créer des règles de détection dans Wazuh
 
-### Résultat attendu
+Wazuh possède déjà des règles pour surveiller les actions sur des fichiers sensibles :
 
-1. **Détection des accès au répertoire `/home/administrateur1` :**
+- **ID 80784** : Détecte la **lecture** d'un fichier.
+- **ID 80789** : Détecte l'**exécution** d'un fichier.
+- **ID 80781** : Détecte la **modification** d'un fichier.
 
-    - Toute tentative d’accès sera enregistrée par `auditd` et générera une alerte dans Wazuh.
+Nous allons nous appuyer sur ces règles existantes pour configurer des alertes lorsque des actions sont effectuées sur le fichier honeypot `/home/alex/credentials-admin.txt`.
 
-2. **Détection des tentatives de connexion à `administrateur1` :**
+> [Voir les règles créer](https://github.com/Purpelab/ForgeLab/rules/honeypot.xml)
+> 
+## Différence avec les règles FIM
 
-    - Toute tentative d’exécuter des commandes ou de se connecter sera détectée.
+| **Critère**                | **Règles Wazuh (Auditd)**                                 | **Règles FIM**                                     |
+|----------------------------|-----------------------------------------------------------|----------------------------------------------------|
+| **Objectif**               | Surveiller des actions (lecture, écriture, exécution) sur des fichiers spécifiques | Surveiller l'intégrité des fichiers (ajouts, suppressions, modifications) |
+| **Exemples d'actions surveillées** | Lecture, Exécution, Modification                        | Ajout, Suppression, Modification du contenu        |
 
-3. **Alertes visibles via Wazuh :**
-
-    - Vous pourrez surveiller ces événements en temps réel et recevoir des notifications.
