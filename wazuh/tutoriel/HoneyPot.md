@@ -95,7 +95,7 @@ Wazuh possède déjà des règles pour surveiller les actions sur des fichiers s
 
 Nous allons nous appuyer sur ces règles existantes pour configurer des alertes lorsque des actions sont effectuées sur le fichier honeypot `/home/alex/credentials-admin.txt`.
 
-> [Voir les règles créer](https://github.com/Purpelab/ForgeLab/rules/honeypot.xml)
+> [Voir les règles crées](https://github.com/Purpelab/ForgeLab/rules/honeypot.xml)
 > 
 ## Différence avec les règles FIM
 
