@@ -87,6 +87,14 @@ On s'appuie sur la règle d'ajout de fichier pour aller checker le fichier ajout
 - Problème avec $(syscheck.path) : La variable ne fonctionne pas correctement. L'objectif est de la faire afficher le chemin complet du fichier modifié dans l'alerte.
   > Problème résolu : [Voir la syntaxe](https://documentation.wazuh.com/current/user-manual/capabilities/file-integrity/creating-custom-fim-rules.html) pour les $(syntaxe)
 - Exclusion des faux positifs : Le répertoire **/tmp** génère des faux positifs. Solution : Utilise une whitelist pour exclure les fichiers sûrs.
+  > Problème résolu voir ci dessous.
+
+## Whitelist
+Dans le fichier /var/ossec/etc/ossec.conf, plus précisément dans la section syscheck, nous utiliserons la balise <ignore> avec des expressions régulières de type sregex pour whitelister les fichiers qui commencent ou se terminent par une chaîne de caractères générant beaucoup de bruit.
+
+![ignore](/assets/ignore.png)
+
+ Cliquer ici pour en savoir plus sur les [regex]()
 
 ## Conclusion
 La configuration de FIM dans Wazuh permet de protéger les fichiers critiques en détectant les changements non autorisés. La personnalisation des règles améliore la pertinence des alertes tout en réduisant les faux positifs.
