@@ -185,9 +185,9 @@ sudo cscli dashboard stop
 sudo cscli dashboard remove
 ```
 
-![/assets/metabase1.png]
+![metabase1](/assets/metabase1.png)
 
-![/assets/metabase2.png]
+![metabase1](/assets/metabase2.png)
 
 # Retour sur l'outil
 
