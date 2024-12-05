@@ -1,6 +1,7 @@
 # Présentation de l'outil 
 
 CrowdSec est une solution open-source de détection et de réponse aux menaces, conçue pour protéger les infrastructures contre les attaques. Elle analyse les logs en temps réel, identifie les comportements suspects et prend des mesures automatiques pour bloquer les attaquants. CrowdSec utilise des scénarios prédéfinis et des bouncers pour appliquer des décisions de sécurité, offrant une protection proactive et collaborative grâce à une communauté partageant des informations sur les menaces.
+
 ![crowdsec](/assets/crowdsec.png)
 
 ## Collection
@@ -138,8 +139,6 @@ labels:
   type: opencanary
 
 ```
-
-
 # Demo Web
 On a bien accès au site : 
 
@@ -149,7 +148,9 @@ Je lance Nikto :
 
 ![demo2](/assets/demo2.png)
 
-Il s'arrête d'un coup !
+> Il s'arrête d'un coup !
+
+**Je n'ai plus accès au site et l'IP est bannie pendant 8 h !**
 
 ![demo3](/assets/demo3.png)
 
