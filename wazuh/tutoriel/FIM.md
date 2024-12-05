@@ -83,6 +83,8 @@ Dans `/var/ossec/etc/ossec.conf` :
 
 On s'appuie sur la règle d'ajout de fichier pour aller checker le fichier ajouter dans Virus Total. La règle déclenchera la rule.id **87103** de level 3 si le fichier n'est pas reconnu malveillant (pas d'alerte) et la rule.id **87105** de level 12 (alerte high) si le fichier est malveillant. Par mesure de précautions il est possible monter cette alerte en critique (level 15 - 0490-virustotal_rules.xml) mais il faut prendre en compte que VirusTotal a parfois des faux positif. 
 
+> Pour tester la règle faire wget https://secure.eicar.org/eicar.com
+
 ## Points à améliorer
 - Problème avec $(syscheck.path) : La variable ne fonctionne pas correctement. L'objectif est de la faire afficher le chemin complet du fichier modifié dans l'alerte.
   > Problème résolu : [Voir la syntaxe](https://documentation.wazuh.com/current/user-manual/capabilities/file-integrity/creating-custom-fim-rules.html) pour les $(syntaxe)
