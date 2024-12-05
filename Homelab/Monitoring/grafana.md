@@ -67,7 +67,7 @@ sudo ufw allow 9100 # Node Exporter
 - URL : http://localhost:9090
 - Cliquez sur Save & Test pour vérifier que Grafana peut se connecter à Prometheus.
 
-![illustration](grafana1.png)
+![illustration](/assets/grafana1.png)
 
 ## 📈 Importer un Dashboard
  - Dans Dashboard > New > Import
