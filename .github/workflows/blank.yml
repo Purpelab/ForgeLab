@@ -1,0 +1,21 @@
+name: Emoji Check
+
+on: push
+
+jobs:
+  emoji-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Verify commit messages
+        run: |
+          commits=$(git log ${{ github.event.before }}..${{ github.sha }} --pretty=format:"%s")
+          for commit in $commits; do
+              if ! echo "$commit" | grep -qP "[\x{1F600}-\x{1F64F}\x{1F300}-\x{1F5FF}\x{1F680}-\x{1F6FF}\x{2600}-\x{26FF}]"; then
+                  echo "❌ Le commit suivant n'a pas d'emoji : $commit"
+                  exit 1
+              fi
+          done
+          echo "✅ Tous les commits contiennent des emojis."
