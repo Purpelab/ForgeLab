@@ -11,12 +11,21 @@ jobs:
 
       - name: Verify commit messages
         run: |
-          commits=$(git log --pretty=format:"%s" ${{ github.sha }})
-          for commit in $commits; do
-              if ! grep -qP "[\x{1F600}-\x{1F64F}\x{1F300}-\x{1F5FF}\x{1F680}-\x{1F6FF}\x{2600}-\x{26FF}]" "$1"; then
-                echo "❌ Votre message de commit doit inclure au moins un emoji !"
-                exit 1
-              fi
+          # Récupérer les messages de commit
+          commits=$(git log --pretty=format:"%s" ${{ github.event.before }}..${{ github.sha }})
 
+          # Vérifier si des commits ont été trouvés
+          if [ -z "$commits" ]; then
+              echo "❌ Aucun message de commit trouvé dans la plage spécifiée."
+              exit 1
+          fi
+
+          # Vérifier la présence d'emoji dans chaque message de commit
+          echo "$commits" | while read -r commit; do
+              if ! echo "$commit" | grep -qP "[\x{1F600}-\x{1F64F}\x{1F300}-\x{1F5FF}\x{1F680}-\x{1F6FF}\x{2600}-\x{26FF}]"; then
+                  echo "❌ Le message de commit suivant n'a pas d'emoji : $commit"
+                  exit 1
+              fi
           done
+
           echo "✅ Tous les commits contiennent des emojis."
