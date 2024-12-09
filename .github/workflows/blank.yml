@@ -12,7 +12,7 @@ jobs:
       - name: Verify commit messages
         run: |
           # Récupérer les messages de commit
-          commits=$(git log --pretty=format:"%s" ${{ github.event.before }}..${{ github.sha }})
+          commits=$(git log HEAD --pretty=format:"%s")
 
           # Vérifier si des commits ont été trouvés
           if [ -z "$commits" ]; then
