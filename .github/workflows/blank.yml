@@ -11,11 +11,6 @@ jobs:
 
       - name: Verify commit messages
         run: |
-          if [ -z "${{ github.event.before }}" ] || [ -z "${{ github.sha }}" ]; then
-              echo "❌ Impossible de déterminer la plage de commits."
-              exit 1
-          fi
-
           commits=$(git log --pretty=format:"%s" ${{ github.sha }})
           for commit in $commits; do
               if ! grep -qP "[\x{1F600}-\x{1F64F}\x{1F300}-\x{1F5FF}\x{1F680}-\x{1F6FF}\x{2600}-\x{26FF}]" "$1"; then
