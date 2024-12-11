@@ -45,13 +45,13 @@ execute_command() {
 echo -e "\n🔍 Début de la testsuite SIEM pour les commandes réseau...\n"
 
 # Liste des commandes à exécuter
-execute_command "netstat -an" "🛠️" "netstat"
-execute_command "ss -tulnp" "🔧" "ss"
+execute_command "netstat -an #testsuite" "🛠️" "netstat"
+execute_command "ss -tulnp #testsuite" "🔧" "ss"
 execute_command "route -n" "🗺️" "route"
 execute_command "dig google.com" "🌐" "dig"
-execute_command "nslookup google.com" "🔍" "nslookup"
-execute_command "traceroute google.com" "📍" "traceroute"
-execute_command "arp -a" "🖧" "arp"
+execute_command "nslookup www.google.com" "🔍" "nslookup"
+execute_command "traceroute www.google.com" "📍" "traceroute"
+execute_command "arp -a #testsuite" "🖧" "arp"
 execute_command "(echo 'quit') | telnet 127.0.0.1 80" "📡" "telnet"
 
 echo -e "\n✅ ${GREEN}Fin de la testsuite SIEM.${RESET}\n"
