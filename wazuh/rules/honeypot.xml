@@ -17,11 +17,11 @@
 ║                                                                   Author: amaz974 & CupOfCoffeeX                                                    ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 -->
-<group name="Honeypot">
+<group name="Honeypot"> 
 
 <rule id="100301" level="15">
     <if_sid>80784</if_sid>
-    <description>👀 Le fichier $(audit.file.name) a été lu avec la commande $(command) 👀</description>
+    <description>🍯 Le fichier $(audit.file.name) a été lu avec la commande $(command) 🍯</description>
     <info>
         Cette règle détecte la lecture d'un fichier sensible dans le répertoire `/home/alex`.
         **Champs intéressants à regarder :**
@@ -30,13 +30,13 @@
     <mitre>
         <id>T1005</id>
     </mitre>
-    <group>honeypot,critical,read</group>
+    <group>honeypot,auditd,critical,read</group>
 </rule>
 
 
 <rule id="100302" level="15">
     <if_sid>80789</if_sid>
-    <description>👀 Le fichier $(audit.file.name) a été exécuté 👀</description>
+    <description>🍯 Le fichier $(audit.file.name) a été exécuté 🍯</description>
     <info>
         Cette règle détecte l'exécution d'un fichier sensible dans le répertoire `/home/alex`.
         **Champs intéressants à regarder :**
@@ -45,12 +45,12 @@
     <mitre>
         <id>T1059</id>
     </mitre>
-    <group>honeypot,critical,execution</group>
+    <group>honeypot,auditd,critical,execution</group>
 </rule>
 
     <rule id="100303" level="15">
     <if_sid>80781</if_sid>
-    <description>👀 Le fichier $(audit.file.name) a été modifié avec la commande $(command) 👀</description>
+    <description>🍯 Le fichier $(audit.file.name) a été modifié avec la commande $(command) 🍯</description>
     <info>
         Cette règle détecte une modification sur un fichier sensible dans le répertoire `/home/alex`.
         **Champs intéressants à regarder :**
@@ -61,3 +61,17 @@
     </mitre>
     <group>honeypot,critical,modification</group>
 </rule>
+
+  <rule id="100304" level="15">
+  <if_sid>80700</if_sid>
+    <description>🍯 Le user administrateur1 a tenter de se connecter 🍯</description>
+    <match>administrateur1</match>
+        <info>
+        Cette règle détecte une connexion au compte administrateur1 `/home/alex`.
+    </info>
+        <mitre>
+        <id>T1071</id>
+    </mitre>
+    <group>,auditd,authentication_failed,honeypot,critical,</group>
+  </rule>
+</group>
