@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/logo-forgelab.png" alt="Logo" width="350">
+  <img src="assets/renardo.jpg" alt="Logo" width="350">
 </div>
 
 
