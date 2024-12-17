@@ -17,11 +17,21 @@
 ║                                                                   Author: amaz974 & CupOfCoffeeX                                                    ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 -->
+
+<!-- Pour ces règles nous nous sommes basée sur des régles auditd qui détecte l'accès au fichier ciblé :
+
+-w /home/alex/credentials-admin.txt -p w -k audit-wazuh-w
+-w /home/alex/credentials-admin.txt -p r -k audit-wazuh-r
+-w /home/alex/credentials-admin.txt -p x -k audit-wazuh-x
+-w /home/alex/credentials-admin.txt -p a -k audit-wazuh-a
+
+Ces alertes sont remontée a l'aide des if_sid des règles auditd qui monitore l'accès en lecture,ecriture et execution.
+-->
 <group name="Honeypot"> 
 
 <rule id="100301" level="15">
     <if_sid>80784</if_sid>
-    <description>🍯 Le fichier $(audit.file.name) a été lu avec la commande $(command) 🍯</description>
+    <description>🍯 Le fichier $(audit.file.name) a été lu avec la commande $(audit.command) 🍯</description>
     <info>
         Cette règle détecte la lecture d'un fichier sensible dans le répertoire `/home/alex`.
         **Champs intéressants à regarder :**
@@ -36,7 +46,7 @@
 
 <rule id="100302" level="15">
     <if_sid>80789</if_sid>
-    <description>🍯 Le fichier $(audit.file.name) a été exécuté 🍯</description>
+    <description>🍯 Le fichier $(audit.file.name) a été exécuté avec la commmande $(audit.command)🍯</description>
     <info>
         Cette règle détecte l'exécution d'un fichier sensible dans le répertoire `/home/alex`.
         **Champs intéressants à regarder :**
@@ -50,7 +60,7 @@
 
     <rule id="100303" level="15">
     <if_sid>80781</if_sid>
-    <description>🍯 Le fichier $(audit.file.name) a été modifié avec la commande $(command) 🍯</description>
+    <description>🍯 Le fichier $(audit.file.name) a été modifié avec la commande $(audit.command) 🍯</description>
     <info>
         Cette règle détecte une modification sur un fichier sensible dans le répertoire `/home/alex`.
         **Champs intéressants à regarder :**
@@ -61,6 +71,11 @@
     </mitre>
     <group>honeypot,critical,modification</group>
 </rule>
+
+
+<!-- -w /var/log/auth.log -p wa -k user-login
+Avec cette règle auditd nous remontons les tentatives de connexions puis avec le champs <match> nous vérifions la présence de administrateur1
+-->
 
   <rule id="100304" level="15">
   <if_sid>80700</if_sid>
