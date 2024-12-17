@@ -1,4 +1,7 @@
-# Honeypot pour surveiller l'accès à `/home/alex/credentials-admin.txt`
+# Honeypot
+
+
+## 1 - Honeypot pour surveiller l'accès à `/home/alex/credentials-admin.txt`
 
 ## Introduction
 
@@ -12,29 +15,8 @@ Avant de commencer, voici les éléments à préparer :
 - Un répertoire `/home/administrateur1` qui sera créé avec des permissions minimales pour attirer un attaquant potentiel.
 - Un fichier honeypot `/home/alex/credentials-admin.txt` qui contiendra des informations sensibles que nous allons surveiller.
 
-## Étape 1 : Créer l'utilisateur `administrateur1`
 
-1. **Créer un utilisateur système sans connexion interactive :**
-
-    ```sh
-    sudo useradd -M -r -s /usr/sbin/nologin administrateur1
-    ```
-
-    - **`-M`** : Ne crée pas de répertoire personnel.
-    - **`-r`** : Crée un utilisateur système, sans droits spécifiques.
-    - **`-s /usr/sbin/nologin`** : Empêche l'accès à l'utilisateur par une session shell interactive.
-
-2. **Créer un répertoire personnel avec des permissions restreintes :**
-
-    ```sh
-    sudo mkdir /home/administrateur1
-    sudo chown administrateur1:administrateur1 /home/administrateur1
-    sudo chmod 700 /home/administrateur1
-    ```
-
-    - **Explication des permissions `chmod 700` :** Les droits sont uniquement pour le propriétaire.
-
-3. **Création du fichier honeypot `/home/alex/credentials-admin.txt` :**
+1. **Création du fichier honeypot `/home/alex/credentials-admin.txt` :**
 
     Ce fichier servira de cible pour surveiller l'accès.
 
@@ -67,7 +49,7 @@ Les règles `auditd` permettent de surveiller les actions sur des fichiers ou r�
 sudo nano /etc/audit/rules.d/audit.rules
 
 ```
-Ajouter les lignes suivantes :
+Ajouter les lignes suivantes pour monitorer le fichier `credentials-admin.txt`:
 
 ```sh
 
@@ -104,3 +86,28 @@ Nous allons nous appuyer sur ces règles existantes pour configurer des alertes 
 | **Objectif**               | Surveiller des actions (lecture, écriture, exécution) sur des fichiers spécifiques | Surveiller l'intégrité des fichiers (ajouts, suppressions, modifications) |
 | **Exemples d'actions surveillées** | Lecture, Exécution, Modification                        | Ajout, Suppression, Modification du contenu        |
 
+
+
+## Montorer la connection a l'utilisateur administrateur1
+
+- Monitorer les logs de connexions avec auditd : 
+```sh
+-w /var/log/auth.log -p wa -k user-login
+```
+
+```sh
+  <rule id="100304" level="15">
+  <if_sid>80700</if_sid>
+    <description>🍯 Le user administrateur1 a tenter de se connecter 🍯</description>
+    <match>administrateur1</match>
+        <info>
+        Cette règle détecte une connexion au compte administrateur1 `/home/alex`.
+    </info>
+        <mitre>
+        <id>T1071</id>
+    </mitre>
+    <group>,auditd,authentication_failed,honeypot,critical,</group>
+  </rule>
+```
+
+Cette règle détecte quand administrateur1 est vue dans les logs de connexion. (ex : su administrateur1)
