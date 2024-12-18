@@ -13,8 +13,9 @@
 ║       8 8888             `8888888P'     8 8888     `88.     `8888888P'    8 888888888888 8 888888888888 .8'       `8. `88888. 8 888888888P          ║
 ║                                                                                                                                                     ║
 ╠═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║                                                                   Regex Rules  -100400                                                              ║
+║                                                                   Regex Rules - 100400                                                              ║
 ║                                                                   Author: amaz974 & CupOfCoffeeX                                                    ║
+║                                                             Description : Le but est de détecté la lecture et la copie de fichier sensible          ║
 ╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 -->
 
@@ -27,11 +28,9 @@ On se base sur la règle 80792 qui surveille l'exécution de commandes système,
     
     <rule id="100401" level="15">
     <if_sid>80792</if_sid>
-    <description>🧩 la commande $(audit.command)$(audit.execve.a1) a été détécté</description>
-    <regex>/etc/passwd|etc/passwd|e[^a-zA-Z]*tc/passwd|passwd</regex>
-    <regex>/etc/shadow|etc/shadow|e[^a-zA-Z]*tc/shadow|shadow/</regex>
-    <regex>/usr/bin|usr/bin|e[^a-zA-Z]*tc/usr/bin|usr[^a-zA-Z]*bin</regex>
-    <regex>/proc/net|proc/net|e[^a-zA-Z]*tc/proc/net|proc[^a-zA-Z]*net</regex>
+    <description>🧩 la commande $(audit.command) $(audit.execve.a1) a été détécté 🧩</description>
+    <regex>/etc/passwd|etc/passwd|e[^a-zA-Z]*tc/passwd|passwd|/etc/shadow|etc/shadow|e[^a-zA-Z]*tc/shadow|shadow/|/proc/net|proc/net|/proc/net|proc[^a-zA-Z]*net</regex>
+    <field name="audit.command">cat|less|nano|vim|vi|more|head|tail|strings|awk|grep|egrep|sed|tac|view|ed|cp|mv</field> <!-- Par exemple, vous pouvez ajuster ce champ à la commande cible -->
 
         <info>
             Cette règle détecte un accès à un fichier sensible.
@@ -45,10 +44,11 @@ On se base sur la règle 80792 qui surveille l'exécution de commandes système,
         </info>
 
     <mitre>
-        <id>T1005</id>
+        <id>T1065</id>
     </mitre>
     <group>,regex, auditd, critical, file access  </group>
     </rule>
-    </group>
+
+</group>
     
     
