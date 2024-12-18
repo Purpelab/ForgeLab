@@ -1,7 +1,7 @@
-# Honeypot
+# Honeypot 🍯
 
 
-## 1 - Honeypot pour surveiller l'accès à `/home/alex/credentials-admin.txt`
+## 1 - Surveillance de `/home/alex/credentials-admin.txt`
 
 ## Introduction
 
@@ -88,7 +88,7 @@ Nous allons nous appuyer sur ces règles existantes pour configurer des alertes 
 
 
 
-## Montorer la connection a l'utilisateur administrateur1
+## 2 - Montorer la connection a l'utilisateur administrateur1
 
 - Monitorer les logs de connexions avec auditd : 
 ```sh
