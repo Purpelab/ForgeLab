@@ -20,7 +20,17 @@
 -->
 
 <!-- 
-On se base sur la règle 80792 qui surveille l'exécution de commandes système, lorsque cette règle se déclenche on vérifie la présence du regex et lève une alerte si le champ est trouvé
+- On se base sur la règle 80792 qui surveille l'exécution de commandes système, lorsque cette règle se déclenche on vérifie la présence du regex et lève une alerte si le champ est trouvé
+
+- Cette règle est similaire au FIM sauf qu'elle détecte la lecture de ces fichiers : 
+/etc/passwd
+/etc/shadow
+/proc/net
+/etc/sudoers
+/etc/cron
+/etc/group
+/proc/version
+
 -->
 
 <group name="regex">
@@ -28,9 +38,9 @@ On se base sur la règle 80792 qui surveille l'exécution de commandes système,
     
     <rule id="100401" level="15">
     <if_sid>80792</if_sid>
-    <description>🧩 la commande $(audit.command) $(audit.execve.a1) a été détécté 🧩</description>
-    <regex>/etc/passwd|etc/passwd|e[^a-zA-Z]*tc/passwd|passwd|/etc/shadow|etc/shadow|e[^a-zA-Z]*tc/shadow|shadow/|/proc/net|proc/net|/proc/net|proc[^a-zA-Z]*net</regex>
-    <field name="audit.command">cat|less|nano|vim|vi|more|head|tail|strings|awk|grep|egrep|sed|tac|view|ed|cp|mv</field> <!-- Par exemple, vous pouvez ajuster ce champ à la commande cible -->
+    <description>🧩 la commande $(audit.command) $(audit.execve.a1) a été détécté</description>
+    <regex>/etc/passwd|etc/passwd|e[^a-zA-Z]*tc/passwd|passwd|/etc/shadow|etc/shadow|e[^a-zA-Z]*tc/shadow|shadow/|/proc/net|proc/net|/proc/net|proc[^a-zA-Z]*net|/etc/sudoers|etc/sudoers|e[^a-zA-Z]*tc/sudoers|sudoers|/etc/cron|etc/cron|e[^a-zA-Z]*tc/cron|cron|/etc/group|etc/group|e[^a-zA-Z]*tc/group|group|/proc/version|proc/version|pr[^a-zA-Z]*oc/version|version</regex>
+    <field name="audit.command">cat|less|nano|vim|vi|more|head|tail|strings|awk|grep|egrep|sed|tac|view|ed|cp|mv</field> 
 
         <info>
             Cette règle détecte un accès à un fichier sensible.
@@ -44,10 +54,11 @@ On se base sur la règle 80792 qui surveille l'exécution de commandes système,
         </info>
 
     <mitre>
-        <id>T1065</id>
+        <id>T1005</id>
     </mitre>
     <group>,regex, auditd, critical, file access  </group>
     </rule>
+    
 
 </group>
     
