@@ -63,12 +63,12 @@ Les listes **CDB** dans Wazuh sont utilisées pour détecter des menaces, telles
 
 4. Lier les logs auditd à Wazuh : 
    
-   ```xml
+```xml
 <localfile>
   <log_format>audit</log_format>
   <location>/var/log/audit/audit.log</location>
 </localfile>
-   ```
+```
 
 
 
