@@ -193,3 +193,21 @@ sudo cscli dashboard remove
 
 CrowdSec est vraiment complet et facile à utiliser, à intégrer et à déployer. Le seul bémol serait qu'il peut être compliqué à gérer et à mettre en place pour de grandes infrastructures. Cependant, l'un de ses avantages majeurs est qu'il est gratuit, ce qui en fait une solution très attrayante. Il faut bien le configurer pour en tirer le meilleur parti.
 
+> Petite parenthèse ...
+
+Fail2Ban est un outil de sécurité qui surveille les fichiers journaux pour détecter les tentatives d'accès malveillantes et bloque les IPs suspectes en les ajoutant à un pare-feu (iptables).
+```
+sudo apt update
+sudo apt install fail2ban
+sudo systemctl status fail2ban
+```
+
+**Configurer Fail2Ban :**
+
+```
+Si vous souhaitez personnaliser la configuration, créez un fichier jail.local pour ne pas écraser les paramètres par défaut de jail.conf :
+sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+sudo systemctl restart fail2ban
+sudo fail2ban-client status
+```
+
