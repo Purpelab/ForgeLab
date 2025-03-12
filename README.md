@@ -5,17 +5,17 @@
  
 # Bienvenue sur ForgeLab ! 
 
-ForgeLab est un laboratoire Purple Team où créativité et cybersécurité se rencontrent. Ici, on construit, on teste, on améliore, et parfois... on casse (volontairement ou pas) des règles de sécurité, le tout dans un environnement maîtrisé. 🚀
+ForgeLab est un laboratoire Purple Team où créativité et cybersécurité se rencontrent. Ici, on construit, on teste, on améliore, et parfois... on casse (volontairement ou pas) des règles de sécurité, le tout dans un environnement maîtrisé. 
 
 ---
 
 ## 🎯 Objectif du Projet
 
-- 🛡️**Tester et perfectionner des règles de détection** (notamment avec Wazuh) pour couvrir les tactiques, techniques et procédures des attaquants.
-- 🔍 **Analyser les menaces** : Étudier les événements de sécurité pour améliorer nos stratégies de réponse aux incidents.
-- 🚀 **Tester et contourner** : Pousser nos propres règles dans leurs retranchements pour identifier leurs limites.
-- 📊 **Générer des rapports d'attaque** : Grâce à des outils comme PurpleOps.
-- 🛠️ **Explorer des outils de sécurité** : Évaluer différentes solutions pour mieux comprendre le marché.
+🛡️**Tester et perfectionner des règles de détection** (notamment avec Wazuh) pour couvrir les tactiques, techniques et procédures des attaquants.
+🔍 **Analyser les menaces** : Étudier les événements de sécurité pour améliorer nos stratégies de réponse aux incidents.
+🚀 **Tester et contourner** : Pousser nos propres règles dans leurs retranchements pour identifier leurs limites.
+📊 **Générer des rapports d'attaque** : Grâce à des outils comme PurpleOps.
+🛠️ **Explorer des outils de sécurité** : Évaluer différentes solutions pour mieux comprendre le marché.
 
 ---
 
@@ -27,8 +27,8 @@ Tout a commencé avec un vieux PC HP équipé d’un processeur i3, seulement **
 
 ####  Les premières améliorations
 On a décidé de lui donner une seconde vie :  
-- 💾 **Ajout de RAM** : 2 x 8 Go pour booster les performances.  
-- ⚡ **SSD flambant neuf** : 500 To.  
+⚡ **Ajout de RAM** : 2 x 8 Go pour booster les performances.  
+⚡ **SSD flambant neuf** : 500 To.  
 
 La RAM pour améliorer la capacité multitâche et réduire les ralentissements, et le SSD pour accélérer les temps de chargement et rendre le système beaucoup plus réactif.
 
@@ -77,9 +77,9 @@ Avec nos ambitions décuplées, le vieux PC n’était plus à la hauteur. Nous 
 
 ## 🌱 Pourquoi cette aventure est enrichissante
 
-- 💡 **Apprentissage constant** : Découvrir et tester de nouvelles technologies de sécurité.  
-- 🤝 **Travail collaboratif** : Développer un esprit Purple Team (Red + Blue).  
-- 🛠️ **Montée en compétences techniques** : Que ce soit en SIEM, honeypots, infrastructur, réseau, Blue Team et Red Team.  
+🔹 **Apprentissage constant** : Découvrir et tester de nouvelles technologies de sécurité.  
+🔹 **Travail collaboratif** : Développer un esprit Purple Team (Red + Blue).  
+🔹 **Montée en compétences techniques** : Que ce soit en SIEM, honeypots, infrastructur, réseau, Blue Team et Red Team.  
 
 ---
 
