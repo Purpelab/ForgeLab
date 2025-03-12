@@ -86,7 +86,7 @@ sudo tctl users add admin --roles=editor,access --logins=admin,root
 
 Après avoir exécuté la commande, vous obtiendrez un message avec une URL pour terminer la configuration du compte.
 
-![teleport1](./assets/teleport1)
+![teleport1](./assets/teleport1.png)
 
 ---
 
@@ -95,7 +95,7 @@ Après avoir exécuté la commande, vous obtiendrez un message avec une URL pour
 Utiliser le script fournis en ajoutant -k pour ignorer les certificats.
 Dans  ```/usr/lib/systemd/system/teleport.service ajouter``` --insecure
 
-![teleport2](./assets/teleport2)
+![teleport2](./assets/teleport2.png)
 
 Rédemarrer le deamon et le service : 
 ```
