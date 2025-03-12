@@ -14,11 +14,11 @@ sudo lynis audit system
 
 Avant hardenning  
 
-[hardenning1](/assets/hardenning1)
+[hardenning1](/assets/hardenning1.png)
 
 Après hardenning 
 
-[hardenning2](/assets/hardenning2)
+[hardenning2](/assets/hardenning2.png)
 
 
 Voici un résumé des configurations de durcissement effectuées sur votre système pour renforcer sa sécurité :
