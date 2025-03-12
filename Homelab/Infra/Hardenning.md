@@ -12,11 +12,11 @@ sudo apt install lynis -y
 sudo lynis audit system
 ```
 
-Avant hardenning  
+## Avant hardenning  
 
 ![hardenning1](/assets/hardenning1.png)
 
-Après hardenning 
+## Après hardenning 
 
 ![hardenning2](/assets/hardenning2.png)
 
