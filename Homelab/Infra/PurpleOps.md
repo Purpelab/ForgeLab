@@ -10,4 +10,4 @@ Vous pouvez consulter nos rapports dans le répertoire suivant :  [Rapports Wazu
 Vous pouvez accéder au projet :    [![PurpleOps](https://img.shields.io/badge/PurpleOps-Open%20Source-brightgreen)](https://github.com/CyberCX-STA/PurpleOps)
 
 ### Template
-Notre modèle de rapport est disponible dans le répertoire suivant :  [Template V1](https://github.com/Purpelab/ForgeLab/tree/main/wazuh/rapports/templateV1)
+Notre modèle de rapport est disponible dans le répertoire suivant :  [Template V1](https://github.com/Purpelab/ForgeLab/blob/main/wazuh/rapports/templateV1.docx)
