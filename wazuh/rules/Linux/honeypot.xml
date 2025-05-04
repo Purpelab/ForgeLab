@@ -78,7 +78,7 @@ Ces alertes sont remontée a l'aide des if_sid des règles auditd qui monitore l
 Avec cette règle auditd nous remontons les tentatives de connexions puis avec le champs <match> nous vérifions la présence de administrateur1
 -->
 
-  <rule id="100304" level="15">
+  <rule id="100304" level="15" frequency="2" timeframe="10" ignore="30">
   <if_sid>80700</if_sid>
     <description>🍯 Le user administrateur1 a tenter de se connecter 🍯</description>
     <match>administrateur1</match>
